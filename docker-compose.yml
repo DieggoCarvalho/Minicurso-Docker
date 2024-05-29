@@ -1,0 +1,30 @@
+version: '3'
+
+
+services:
+    www:
+        build: .
+        container_name: treinamento-b7web
+        restart: always
+        ports: 
+          - '8000:80'
+        volumes:
+          - ./www:/var/www/html
+        networks:
+          - default
+    db:
+      image: mysql:5.7
+      restart: always
+      ports:
+        - '3306:3306'
+      environment:
+        MYSQL_DATABASE: meudb
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: root
+        MYSQL_ROOT_PASSWORD: root
+      volumes:
+        - db_data:/var/lib/mysql
+      networks:
+        - default
+volumes:
+  db_data:
